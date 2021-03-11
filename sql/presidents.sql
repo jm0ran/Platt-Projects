@@ -4,6 +4,11 @@
 -- Due Date 3/17/2021
 --
 
+-- Important Considerations
+-- 1. Only acknowledged major wars from a list I found on google
+-- 2. For presidents with middle names I tacked this on to their first name for example, John Adams and John Quincy Adams
+
+
 -- Creates a new database named presidents
 CREATE DATABASE presidents;
 
