@@ -89,6 +89,9 @@ insert into presidentInfo(presidentialNumber, lastName, firstName, party, nickna
 (presidentialNumber, "lastName", "firstName", "party", "nickname", "birthYear", "deathYear", "terms", "decade", "otherPositions", "majorAccomplishments", "warsDuringOffice"),
 */
 
+-- NEED TO CREATE INDEXES
+
+
 -- Temporary overall select
 select * from presidentInfo;
 
