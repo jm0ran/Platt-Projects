@@ -29,6 +29,12 @@ create table presidentInfo
 );
 
 
+-- Creates an index on lastName
+create index idx_lastName on presidentInfo(lastName);
+
+-- Creates an index on party
+create index idx_party on presidentInfo(party);
+
 
 
 -- Describes the table presidentInfo
@@ -36,7 +42,6 @@ describe presidentInfo;
 
 -- Inserts all of our president data into the table
 insert into presidentInfo(presidentialNumber, lastName, firstName, party, nickname, birthYear, deathYear, terms, decade, otherPositions, majorAccomplishments, warsDuringOffice) values
--- Dummy Data line temporary
 (1, "Washington", "George", "Independent", "Father of His Country", "1732", "1799", "2", "1780", "Commander of the Continental Army, President of the Constitutional Convention", "First President of the United States,Succeeded with the American Revolution, Helped draft the Constitution", "Revolutionary War" ),
 (2, "Adams", "John", "Whig Party", "Atlas of Independence", "1735", "1826", "1", "1790", "Vice President to George Washington, Member of Conventional Congress, Commissioner to France, Minister to the Netherlands, Minister to England", "Helped in Revolution, Signer of the Treaty of Paris, Author of the Massachusetts Constitution, Ambassador to the Court of St.", "none"),
 (3, "Jefferson", "Thomas", "Democratic-Republican Party", "Apostle of the Constitution", "1743", "1826", "2", "1800", "Virginia House of Burgesses Member, Continental Congress Member, Governor of Virginia, Diplomat in Europe", "Co-founder of the Democratic-Republican party, Stabilized U.S. Economy, Doubled Size of U.S. with the Louisiana Purchase, Founded University of Virginia", "none"),
@@ -85,16 +90,34 @@ insert into presidentInfo(presidentialNumber, lastName, firstName, party, nickna
 (46, "Biden", "Joe", "Democratic Party", "Amtrak Joe", "1942", null, "1", "2020", "Delaware Senator, New Castle County Council Member, Vice President", "To be seen", "War in Afghanistan")
 ;
 
-/*
-(presidentialNumber, "lastName", "firstName", "party", "nickname", "birthYear", "deathYear", "terms", "decade", "otherPositions", "majorAccomplishments", "warsDuringOffice"),
-*/
 
--- NEED TO CREATE INDEXES
+-- 1. Display all presidents with the first name of "James" (first and last)
+select concat(firstName, " ", lastName) as "Presidents" from presidentInfo where firstName = "James";
 
+-- 2. Display all presidents that are a "Democrat". (first, last & party)
+select concat(firstName, " ", lastName) as "Presidents", party as "Party" from presidentInfo where party = "Democratic Party";
 
--- Temporary overall select
-select * from presidentInfo;
+-- 3. Display all presidents that are a "Republican". (first, last & party)
+select concat(firstName, " ", lastName) as "Presidents", party as "Party" from presidentInfo where party = "Republican Party";
 
+-- 4. Displays all presidents that aren't "Republican or Democrat" (first, last, & party)
+select concat(firstName, " ", lastName) as "Presidents", party as "Party" from presidentInfo where party != "Republican Party" and party != "Democratic Party";
+
+-- 5. Display all presidents that last name starts with an "M" (first and last)
+select concat(firstName, " ", lastName) as "Presidents" from presidentInfo where lastName like "M%";
+
+-- 6. Display all presidents that served 1 term. (first, last & terms)
+select concat(firstName, " ", lastName) as "Presidents", terms as "Terms Served" from presidentInfo where terms = "1";
+
+-- 7. Display all presidents that served 2 term. (first, last & terms)
+select concat(firstName, " ", lastName) as "Presidents", terms as "Terms Served" from presidentInfo where terms = "2";
+
+-- 8. Display all presidents that served more than 2 terms (first, last & terms)
+-- Because terms is supposed to be a string, I used a compound conditional instead of a greater than operator
+select concat(firstName, " ", lastName) as "Presidents", terms as "Terms Served" from presidentInfo where terms != "2" and terms != "1";
+
+-- 9. Display all presidents that served during peace time (first & last)
+select concat(firstName, " ", lastName) as "Presidents" from presidentInfo where warsDuringOffice = "none";
 
 -- Drops our database
 drop database presidents;
