@@ -92,32 +92,32 @@ insert into presidentInfo(presidentialNumber, lastName, firstName, party, nickna
 
 
 -- 1. Display all presidents with the first name of "James" (first and last)
-select concat(firstName, " ", lastName) as "Presidents" from presidentInfo where firstName = "James";
+select concat(firstName, " ", lastName) as "Presidents Starting With J" from presidentInfo where firstName = "James";
 
 -- 2. Display all presidents that are a "Democrat". (first, last & party)
-select concat(firstName, " ", lastName) as "Presidents", party as "Party" from presidentInfo where party = "Democratic Party";
+select concat(firstName, " ", lastName, " ", party) as "Democratic Presidents" from presidentInfo where party = "Democratic Party";
 
 -- 3. Display all presidents that are a "Republican". (first, last & party)
-select concat(firstName, " ", lastName) as "Presidents", party as "Party" from presidentInfo where party = "Republican Party";
+select concat(firstName, " ", lastName, " ", party) as "Republican Presidents" from presidentInfo where party = "Republican Party";
 
 -- 4. Displays all presidents that aren't "Republican or Democrat" (first, last, & party)
-select concat(firstName, " ", lastName) as "Presidents", party as "Party" from presidentInfo where party != "Republican Party" and party != "Democratic Party";
+select concat(firstName, " ", lastName, " ", party) as "Presidents From Other Partys" from presidentInfo where party != "Republican Party" and party != "Democratic Party";
 
 -- 5. Display all presidents that last name starts with an "M" (first and last)
-select concat(firstName, " ", lastName) as "Presidents" from presidentInfo where lastName like "M%";
+select concat(firstName, " ", lastName) as "Presidents With Last Names Starting With M" from presidentInfo where lastName like "M%";
 
 -- 6. Display all presidents that served 1 term. (first, last & terms)
-select concat(firstName, " ", lastName) as "Presidents", terms as "Terms Served" from presidentInfo where terms = "1";
+select concat(firstName, " ", lastName, " ", terms) as "1 Term Presidents" from presidentInfo where terms = "1";
 
 -- 7. Display all presidents that served 2 term. (first, last & terms)
-select concat(firstName, " ", lastName) as "Presidents", terms as "Terms Served" from presidentInfo where terms = "2";
+select concat(firstName, " ", lastName, " ", terms) as "2 Term Presidents" from presidentInfo where terms = "2";
 
 -- 8. Display all presidents that served more than 2 terms (first, last & terms)
 -- Because terms is supposed to be a string, I used a compound conditional instead of a greater than operator
-select concat(firstName, " ", lastName) as "Presidents", terms as "Terms Served" from presidentInfo where terms != "2" and terms != "1";
+select concat(firstName, " ", lastName, " ", terms) as "Multi-Term Presidents" from presidentInfo where terms != "2" and terms != "1";
 
 -- 9. Display all presidents that served during peace time (first & last)
-select concat(firstName, " ", lastName) as "Presidents" from presidentInfo where warsDuringOffice = "none";
+select concat(firstName, " ", lastName) as "Peace Time Presidents" from presidentInfo where warsDuringOffice = "none";
 
 -- Drops our database
 drop database presidents;
