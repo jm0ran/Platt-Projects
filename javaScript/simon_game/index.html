@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Version Control Testing -->
+	<title>Simon Game</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+		.main
+		{
+			height: 45vh;
+		}
+		.outer
+		{
+			height: 10vh;
+		}
+		img
+		{
+			width: 80%;
+			display: inline;
+			border-radius: 20px;
+		}
+		.btn
+		{
+			height: 18vh;
+			width: 18vh;
+			font-size: 4vh;
+			border-radius: 100%;
+		}
+	</style>
+	<script src="main.js"></script>
+</head>
+<body ondragstart="return false">
+
+<div class="container app">
+	<div class="row outer text-center">
+		
+		<div class="col-12 display-3 justify-content-center">
+		Simon Memory Game
+		</div>
+		<div class="col-4"></div>
+	</div>
+	<div class="row text-center main">
+		
+		<div class="col-4 d-flex justify-content-center">
+			<img id="1" onmousedown="game.buttonClick(1);" onmouseup="game.clearButtons(true);" class="my-auto"src="assets/1.png">
+		</div>
+		<div class="col-4 d-flex justify-content-center">
+			<img id="2" onmousedown="game.buttonClick(2);" onmouseup="game.clearButtons(true);" class="my-auto"src="assets/2.png">
+		</div>
+		<div class="col-4 my-auto display-3" id="level">
+			Level:
+			<br>
+			0
+		</div>
+	</div>
+	<div class="row text-center main">
+		
+		<div class="col-4 d-flex justify-content-center">
+			<img id="3" onmousedown="game.buttonClick(3);" onmouseup="game.clearButtons(true);" class="my-auto"src="assets/3.png">
+		</div>
+		<div class="col-4 d-flex justify-content-center">
+			<img id="4" onmousedown="game.buttonClick(4);" onmouseup="game.clearButtons(true);" class="my-auto"src="assets/4.png">
+		</div>
+		<div class="col-4 my-auto display-3">
+			<button id="startButton" onclick="game.startGame()" class="btn btn-primary btn-lg"> Begin </button>
+		</div>
+	</div>
+	<div class="row outer">
+		<div class="col-8 text-center">
+			
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

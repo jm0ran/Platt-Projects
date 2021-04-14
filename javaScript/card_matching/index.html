@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Poker Matching Game</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<style>
+	.card-row
+	{
+		height: 20vh;
+	}
+	.padding-row
+	{
+		height: 10vh;
+	}
+	.col-4
+	{
+		font-size: 4em;	
+	}
+</style>
+<script>
+	
+	//
+	//Javascript Card Matching
+	//Joseph Moran
+	//Date Due: 1/29/2021
+	//
+
+	var deck = //Object to store general information about player, cards, and card statuses, also contains method to shuffle cards
+	{
+		card1 : null, //stores card 1
+		card2 : null, //stores card 2
+		cards : [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8], //This property contains out set of hands
+		matched: [], //stores cards matched
+		matches: 0, //stored amount of matches
+		triesLeft: 20, //sets and stores tries allotted
+		state : 0, //This property tracks whether or not a card is currently flipped and whether the game is currently locked
+		lastPosition: null, //stores last positions
+		restartAllowed: false, //determines if game can be restarted at the time
+		shuffle : function() //This method takes the cards array and shuffles it into a random order
+		{
+			var oCardsLength = this.cards.length; //grabs an original deck length
+			var newCards = []; //creates an empty variable to store our new deck
+		
+			for (i = 0; i < oCardsLength; i++) //for every item in array
+			{	
+				randomNum = Math.floor(Math.random() * this.cards.length); //generates random number based on the arrays current length
+				newCards.push(this.cards[randomNum]); //Takes that random number, indexes and item, and pushed that to our new list
+				this.cards.splice(randomNum, 1); //gets rid of that old item from pool to pull random items from in order to avoid duplicates
+			}
+			
+		this.cards = newCards; //returns our new shuffled array
+		}
+	}
+	
+	function enableRestart() //Enables game restart
+	{
+		document.getElementById("restartButton").src = "images/restart.png"; //activates button
+		deck.restartAllowed = true; //Allows button to run restart code
+	}
+	function disableRestart() //Disable game restart
+	{
+		document.getElementById("restartButton").src = "images/restartDisabled.png"; //deactivates button 
+		deck.restartAllowed = false; //blocks button from running restart code
+	}
+	
+	function restartGame() //restarts game
+	{
+		
+		if (deck.restartAllowed == true) //if restartAllowed is true
+		{
+			deck.card1 = null; //resets card 1
+			deck.card2 = null; //resets card 2
+			deck.cards = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8]; //resets card deck
+			deck.shuffle(); //shuffles deck
+			deck.matched = []; //resets matched
+			deck.matches = 0; //resets matches
+			deck.triesLeft = 20; //resets tries
+			deck.state = 0; //resets state
+			deck.lastPosition = null; //resets last poisition
+			document.getElementById("score").innerHTML = "Matches: <br>" + deck.matches + "/8"; //resets the matches info area
+			document.getElementById("tries").innerHTML = "Tries Left: <br>" + deck.triesLeft; //resets the tries info area
+			document.getElementById("infoArea").innerHTML = "";
+			for (i = 0; i < 16; i++) //empties victory/loss message area
+			{
+				document.getElementById(i).src = "images/0.png"; //sets all the cards to unmatched back
+			}
+			disableRestart(); //disables restart
+		}
+		else //if restart is disabled
+		{
+			//pass
+		}
+	}
+	
+	function checkMatch(card1, card2) //checks if two cards match
+	{
+		if (deck.card1[0] == deck.card2[0]) //if cards match
+		{
+			deck.matched.push(deck.card1[1]); //Add card1 to matched
+			deck.matched.push(deck.card2[1]); //Add card2 to matched
+			document.getElementById(deck.card1[1]).src = "images/01.png"; //sets card 1 to matched back
+			document.getElementById(deck.card2[1]).src = "images/01.png"; //setws card 2 to matched back
+			deck.matches++ //increments the matches variable
+			document.getElementById("score").innerHTML = "Matches: <br>" + deck.matches + "/8"; //updates matches info section
+			
+		}
+		else {
+			document.getElementById(deck.card1[1]).src = "images/0.png"; //sets card1 back to unmatched back
+			document.getElementById(deck.card2[1]).src = "images/0.png"; //sets card 2 back to unmatched back
+		}
+		deck.state = 0; //sets deck state back to default
+		deck.triesLeft--; //removes a trie
+		document.getElementById("tries").innerHTML = "Tries Left: <br>" + deck.triesLeft; //resets tries info area
+		deck.lastPosition = null; //resets deck last position
+		if (deck.matches == 8) //if deck match == 8, if victory
+			{
+				document.getElementById("infoArea").innerHTML="You Win"; //victory message
+				deck.state = 2; //locks deck
+				enableRestart(); //enables restart button
+			}
+		else if (deck.triesLeft <= 0) //if loss
+			{
+				document.getElementById("infoArea").innerHTML="You Lose"; //loss message
+				deck.state = 2; //locks deck
+				enableRestart(); //enables restart
+			}
+			
+
+		
+	}
+	
+	function cardFlip(position) //function run on card flips
+	{	
+		if (deck.state == 2){ //if deck is locked
+			//pass, skip everything that comes next
+		}
+		else if (deck.matched.includes(position)) //If this card has already been matched
+		{
+			//pass, skip this card
+		}
+		else if (deck.state == 0) //if deck state is in inital state, no card has yet been selected
+		{
+			cardNum = deck.cards[position]; //grabs card num
+			image = document.getElementById(position); //sets image string for card
+			image.src = "images/" + cardNum + ".png"; //sets image for card
+			deck.state = 1; //puts deck into next deck state for second card to be selected
+			deck.card1 = [cardNum, position] //sets card1 property for the checkMatch function
+			deck.lastPosition = position; //grabs last position
+			
+		}
+		else if (deck.state == 1 && deck.lastPosition != position) //if deck state is 1 (second card time) and you havent clicked the previous position
+		{
+			setTimeout(checkMatch, 1000) //begins a check match in 1 second
+			cardNum = deck.cards[position]; //grabs cardNum
+			image = document.getElementById(position); //creates image string
+			image.src = "images/" + cardNum + ".png"; //checks image
+			deck.state = 2; //locks deck (checkMatch will unlock it when complete)
+			deck.card2 = [cardNum, position] //grabs card info for checkMatch
+			
+		}
+		else { //if no other if statements are met
+			console.log("error"); //log an error
+		}
+		
+		
+		
+	}
+	
+	deck.shuffle(); //initially shuffles the deck
+	
+	
+	
+	
+	
+	
+
+	
+</script>
+<body>
+
+	<div class="container">
+		<div class="row padding-row">
+			<div class="col-12">	
+				<div class="display-3 text-center"> 
+					Card Matching Game
+				</div>
+			</div>
+			
+		</div>
+		<div class="row card-row">
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="0" onclick="cardFlip(0)">
+			</div>
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="1" onclick="cardFlip(1)">
+			</div>
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="2" onclick="cardFlip(2)">
+			</div>
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="3" onclick="cardFlip(3)">
+			</div>
+			<div class="col-4 text-center" id="infoArea"></div>
+		</div>
+		<div class="row card-row">
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="4" onclick="cardFlip(4)">
+			</div>
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="5" onclick="cardFlip(5)">
+			</div>
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="6" onclick="cardFlip(6)">
+			</div>
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="7" onclick="cardFlip(7)">
+			</div>
+			<div class="col-4 text-center" id="score">
+				Matches: <br>0/8
+			</div>
+		</div>
+		<div class="row card-row">
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="8" onclick="cardFlip(8)">
+			</div>
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="9" onclick="cardFlip(9)">
+			</div>
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="10" onclick="cardFlip(10)">
+			</div>
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="11" onclick="cardFlip(11)">
+			</div>
+			<div class="col-4 text-center" id="tries">
+				Tries Left: <br>20
+			</div>
+		</div>
+		<div class="row card-row">
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="12" onclick="cardFlip(12)">
+			</div>
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="13" onclick="cardFlip(13)">
+			</div>
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="14" onclick="cardFlip(14)">
+			</div>
+			<div class="col-2">
+				<img src="images/0.png" width="80%" id="15" onclick="cardFlip(15)">
+			</div>
+			<div class="col-4 text-center">
+				<img src="images/restartDisabled.png" width="30%" id="restartButton" onclick="restartGame()">
+			</div>
+		</div>
+		
+	</div>
+
+</body>
+</html>
