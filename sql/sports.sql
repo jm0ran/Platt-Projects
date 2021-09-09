@@ -27,7 +27,7 @@ create table surveyData
     sport3 varchar(20) not null
 );
 
--- Describes the table CarsData
+-- Describes the table SurveyData
 describe surveyData;
 
 -- Inserts all of our data about the cars into the table
