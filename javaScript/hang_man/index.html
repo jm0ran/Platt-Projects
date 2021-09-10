@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Kanye Hangman</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="row align-items-center" id="main">
+        <div class="horizontalSplit col-7">
+            <div class="row vertSplit">
+                <div class="col-12" id="topLeft">
+                    <div class="row align-items-center" id="infoRow">
+                        <div class="col-12">
+                            info
+                        </div>
+                    </div>
+                    <div class="row align-items-center" id="wordRow">
+                        <div class="col-12" id="wordCol">
+                            _ _ _ _ _ _ _ _ _ _
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row vertSplit align-items-center" id="bottomLeft">
+                <div class="col-12" id="alphButtons">
+                    <button type="button" onclick="guess('A');" class="btn btn-outline-primary">A</button>
+                    <button type="button" onclick="guess('B');" class="btn btn-outline-primary">B</button>
+                    <button type="button" onclick="guess('C');" class="btn btn-outline-primary">C</button>
+                    <button type="button" onclick="guess('D');" class="btn btn-outline-primary">D</button>
+                    <button type="button" onclick="guess('E');" class="btn btn-outline-primary">E</button>
+                    <button type="button" onclick="guess('F');" class="btn btn-outline-primary">F</button>
+                    <button type="button" onclick="guess('G');" class="btn btn-outline-primary">G</button>
+                    <button type="button" onclick="guess('H');" class="btn btn-outline-primary">H</button>
+                    <button type="button" onclick="guess('I');" class="btn btn-outline-primary">I</button>
+                    <button type="button" onclick="guess('J');" class="btn btn-outline-primary">J</button>
+                    <button type="button" onclick="guess('K');" class="btn btn-outline-primary">K</button>
+                    <button type="button" onclick="guess('L');" class="btn btn-outline-primary">L</button>
+                    <button type="button" onclick="guess('M');" class="btn btn-outline-primary">M</button>
+                    <button type="button" onclick="guess('N');" class="btn btn-outline-primary">N</button>
+                    <button type="button" onclick="guess('O');" class="btn btn-outline-primary">O</button>
+                    <button type="button" onclick="guess('P');" class="btn btn-outline-primary">P</button>
+                    <button type="button" onclick="guess('Q');" class="btn btn-outline-primary">Q</button>
+                    <button type="button" onclick="guess('R');" class="btn btn-outline-primary">R</button>
+                    <button type="button" onclick="guess('S');" class="btn btn-outline-primary">S</button>
+                    <button type="button" onclick="guess('T');" class="btn btn-outline-primary">T</button>
+                    <button type="button" onclick="guess('U');" class="btn btn-outline-primary">U</button>
+                    <button type="button" onclick="guess('V');" class="btn btn-outline-primary">V</button>
+                    <button type="button" onclick="guess('W');" class="btn btn-outline-primary">W</button>
+                    <button type="button" onclick="guess('X');" class="btn btn-outline-primary">X</button>
+                    <button type="button" onclick="guess('Y');" class="btn btn-outline-primary">Y</button>
+                    <button type="button" onclick="guess('Z');" class="btn btn-outline-primary">Z</button>
+                </div>
+            </div>
+        </div>
+        <div class="horizontalSplit col-5">
+            <div class="row align-items-center" id="hangRow">
+                <div class="col-12" id="hangCol">
+                    <img src="assets/3.jpg" height="100%" width="auto">
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

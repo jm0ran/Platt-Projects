@@ -1,0 +1,39 @@
+.horizontalSplit{
+    background-color: red;
+    color: white;
+    border: 2px solid black;
+    text-align: center;
+    height: 80vh;
+}
+.vertSplit, #wordRow, #infoRow{
+    height: 50%;
+    border: 2px solid white;
+}
+#hangRow{
+    height: 80vh;
+}
+#hangCol{
+    height: 80%;
+}
+#main{
+    height: 95vh;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+#alphButtons{
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+button{
+    margin-top: 20px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+#topLeft{
+    height: 100%;
+}
+#wordCol{
+    font-size: 25px;
+}
