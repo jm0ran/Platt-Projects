@@ -12,7 +12,7 @@ USE sportSurvey;
 
 -- Creates the table loactions with fields (All varchars as specified in prompt):
 -- id, firstName, lastName, age, gender, classYear, shop, sport1, sport2, sport3
--- All fields set to not null excpet sport which can be empty for students who do not play a sport
+-- All fields set to not null to prevent entering missing info
 create table surveyData
 (
 	id int primary key auto_increment,
@@ -30,7 +30,7 @@ create table surveyData
 -- Describes the table SurveyData
 describe surveyData;
 
--- Inserts all of our data about the cars into the table
+-- Inserts all of our data about the students into the table
 insert into surveyData(firstName, lastName, age, gender, classYear, shop, sport1, sport2, sport3) values
 	("Joseph", "Moran", "18", "Male", "Senior", "IT", "XC", "NA", "NA"),
     ("Mario", "Goodman", "16", "Male", "Sophmore", "AC", "Basketball", "Football", "NA"),
@@ -134,7 +134,7 @@ insert into surveyData(firstName, lastName, age, gender, classYear, shop, sport1
     ("Marsha", "Higgins", "16", "Female", "Sophmore", "AC", "Baseball", "NA", "NA");
 
 
---General Selection of all Students
+--General Selection of all Students (Not one of the required queries)
 select concat(firstName, " ", lastName) as "Student Name", shop as Shop, age as Age, gender as Gender, classYear as Year, sport1 as "Sport 1", sport2 as "Sport 2", sport3 as "Sport 3" from surveyData;
 
 -- Query for all Freshman playing sports
@@ -156,7 +156,7 @@ select concat(firstName, " ", lastName) as "Student Name", shop as Shop, age as 
 select concat(firstName, " ", lastName) as "Student Name", shop as Shop, age as Age, gender as Gender, classYear as Year, sport1 as "Sport 1", sport2 as "Sport 2", sport3 as "Sport 3" from surveyData where (classYear = "Junior" or classYear = "Senior") and (sport1 = "Softball" or sport2 = "Softball" or sport3 = "Softball");
 
 -- Query for all male students who are under classmen playing multiple sports.
-select concat(firstName, " ", lastName) as "Student Name", shop as Shop, age as Age, gender as Gender, classYear as Year, sport1 as "Sport 1", sport2 as "Sport 2", sport3 as "Sport 3" from surveyData where (classYear = "Junior" or classYear = "Senior") and sport2 != "NA";
+select concat(firstName, " ", lastName) as "Student Name", shop as Shop, age as Age, gender as Gender, classYear as Year, sport1 as "Sport 1", sport2 as "Sport 2", sport3 as "Sport 3" from surveyData where (classYear = "Junior" or classYear = "Senior") and sport2 != "NA" and gender = "Male";
 
 -- Drops our database
 drop database surveyData;
