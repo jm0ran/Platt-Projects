@@ -1,22 +1,23 @@
-.horizontalSplit{
-    background-color: red;
-    color: white;
-    border: 2px solid black;
+h1{
     text-align: center;
-    height: 80vh;
+}
+.horizontalSplit{
+    
+    text-align: center;
+    height: 83vh;
 }
 .vertSplit, #wordRow, #infoRow{
     height: 50%;
-    border: 2px solid white;
+    
 }
 #hangRow{
-    height: 80vh;
+    height: 83vh;
 }
 #hangCol{
     height: 80%;
 }
 #main{
-    height: 95vh;
+    height: 98vh;
     margin-left: 5%;
     margin-right: 5%;
 }
@@ -36,4 +37,12 @@ button{
 }
 #wordCol{
     font-size: 25px;
+    padding-top: 70px;
+}
+img{
+    border: 4px solid black;
+    border-radius: 15px
+}
+#titleCol{
+    padding-bottom: 50px;
 }
